@@ -1,0 +1,34 @@
+{
+  "name": "web-boilerplate",
+  "version": "0.0.2",
+  "description": "Simple Node/HTML project template",
+  "keywords": [
+    "boilerplate"
+  ],
+  "license": "Apache 2",
+  "author": "Daniel Buchner",
+  "scripts": {
+    "edit": "node -e \"require('spec-up')()\"",
+    "render": "node -e \"require('spec-up')({ nowatch: true })\""
+  },
+  "dependencies": {
+    "spec-up": "0.9.101",
+    "koa": "2.13.0",
+    "koa-body": "^4.2.0",
+    "koa-logger": "3.2.1",
+    "koa-router": "9.4.0",
+    "koa-static": "^5.0.0",
+    "fs-extra": "9.1.0",
+    "globby": "11.0.2",
+    "gulp": "4.0.2",
+    "gulp-run": "1.7.1",
+    "gulp-bump": "3.2.0",
+    "gulp-concat": "2.6.1",
+    "gulp-terser": "1.2.0",
+    "gulp-connect": "5.7.0",
+    "merge-stream": "2.0.0",
+    "gulp-clean-css": "4.3.0",
+    "gulp-nunjucks-render": "2.2.3",
+    "axios": "0.21.1"
+  }
+}
