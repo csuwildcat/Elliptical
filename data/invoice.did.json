@@ -1,0 +1,58 @@
+{
+  "@context": [
+    "https://www.w3.org/2018/credentials/v1",
+    "https://schema.org"
+  ],
+  "id": "http://acme-home-heating.com/invoices/1337",
+  "type": ["VerifiableCredential", "Invoice"],
+  "credentialSchema": {
+    "id": "https://schema.org/Invoice"
+  },
+  "credentialSubject": {
+    "@context": "https://schema.org/",
+    "@type": "Invoice",
+    "broker": {
+      "@type": "LocalBusiness",
+      "name": "ACME Home Store"
+    },
+    "accountId": "xxxx-xxxx-xxxx-1234",
+    "customer": {
+      "@type": "Person",
+      "name": "Jane Doe"
+    },
+    "paymentDueDate": "2015-01-30",
+    "totalPaymentDue": {
+      "@type": "PriceSpecification",
+      "price": 1099.98,
+      "priceCurrency": "USD"
+    },
+    "paymentStatus": "https://schema.org/PaymentComplete",
+    "referencesOrder": [
+      {
+        "@context": "http://schema.org",
+        "@type": "Order",
+        "description": "Lounge Chair",
+        "merchant": {
+          "@type": "Organization",
+          "name": "Lexington Home Brands"
+        },
+        "orderNumber": "123-4567890-1234567",
+        "priceCurrency": "USD",
+        "price": "199.99"
+      },
+      {
+        "@context": "http://schema.org",
+        "@type": "Order",
+        "description": "Sofa",
+        "merchant": {
+          "@type": "Organization",
+          "name": "Bernhardt Furniture"
+        },
+        "orderNumber": "987-1234567-723632",
+        "priceCurrency": "USD",
+        "price": "899.99"
+      }
+    ]
+  },
+  "proof": {}
+}

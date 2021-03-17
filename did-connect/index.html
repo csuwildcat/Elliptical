@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="">
+
+  <head>
+    <meta charset="utf-8">
+    <title>DID Connect</title>
+  </head>
+
+  <body>
+    Wallet Frame
+    <script src="/js/connect.js"></script>
+
+    <script type="module">
+      import { DOM } from '/js/modules/dom.js';
+      
+      navigator.did.protocolHandler = async function (channel, topic, data, origin) {
+        return new Promise((resolve, reject) => {
+          if (channel.protocol === 'web+did:') {
+            switch(topic) {
+              case 'requestDID': 
+                if (confirm('Send a DID to ' + origin + '?')) {
+                  let popup = DOM.popup(location.origin + '/request-did', {
+                    title: 'Carbon - DID Wallet',
+                    width: 500,
+                    height: 650,
+                    closeOnBlur: true,
+                    popupSettings: {
+                      origin: origin
+                    },
+                    onBeforeUnload: e => resolve(popup.returnValue)
+                  })
+                }
+                else {
+                  channel.sendError('Denied');
+                }
+              break;
+            }
+          }
+        });
+      };
+
+    </script>
+  </body>
+
+</html>

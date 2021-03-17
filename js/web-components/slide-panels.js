@@ -1,5 +1,5 @@
 
-import '/ion/js/modules/dom.js';
+import '/js/modules/dom.js';
 
 var SlidePanels = globalThis.SlidePanels = class SlidePanels extends HTMLElement {
   static get observedAttributes() {

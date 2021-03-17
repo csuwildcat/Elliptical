@@ -1,5 +1,5 @@
 
-import '/ion/js/modules/dom.js';
+import '/js/modules/dom.js';
 
 var ModalOverlay = globalThis.ModalOverlay = class ModalOverlay extends HTMLElement {
   static get observedAttributes() {

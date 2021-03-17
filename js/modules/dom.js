@@ -34,6 +34,38 @@ var DOM = {
       options[option] = true;
     });
     return node.options = options;
+  },
+  popup(url, options = {}){
+    // Fixes dual-screen position                             Most browsers      Firefox
+    const dualScreenLeft = window.screenLeft !== undefined ? window.screenLeft : window.screenX;
+    const dualScreenTop = window.screenTop !== undefined   ? window.screenTop  : window.screenY;
+
+    const w = window.innerWidth || document.documentElement.clientWidth || screen.width;
+    const h = window.innerHeight || document.documentElement.clientHeight || screen.height;
+
+    const width = options.width || 500;
+    const height = options.height || 650;
+    const zoom = w / window.screen.availWidth;
+    const popup = window.open(url, options.title || '', `    
+      width=${width / zoom}, 
+      height=${height / zoom}, 
+      top=${(h - height) / 2 / zoom + dualScreenTop}, 
+      left=${(w - width) / 2 / zoom + dualScreenLeft},
+      status=no,scrollbars=no,toolbar=no,menubar=no,location=no,resizable=no
+    `);
+
+    if (options.closeOnBlur) {
+      popup.addEventListener('blur', e => popup.close())
+    }
+
+    if (options.onBeforeUnload) {
+      popup.addEventListener('beforeunload', options.onBeforeUnload)
+    }
+
+    popup.popupSettings = options.popupSettings;
+    popup.focus();
+
+    return popup;
   }
 }
 

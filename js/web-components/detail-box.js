@@ -1,5 +1,6 @@
 
-import '/ion/js/modules/dom.js';
+import '/js/modules/dom.js';
+
 
 var DetailBox = globalThis.DetailBox = class DetailBox extends HTMLElement {
   static get observedAttributes() {

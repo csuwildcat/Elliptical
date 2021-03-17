@@ -15,11 +15,12 @@ const compiledCSS = root + 'css/compiled/';
 var assets = {
   js: {
     'web-components': [
-      'detail-box.js',
-      'modal-overlay.js',
-      'notice-bar.js',
       'slide-panels.js',
-      'tab-panels.js'
+      'tab-panels.js',
+      'render-list.js',
+      'modal-overlay.js',
+      'detail-box.js',
+      'notice-bar.js',
     ].map(name => root + 'js/web-components/' + name),
     body: [
       root + 'js/global.js'
@@ -27,9 +28,17 @@ var assets = {
   },
   css: {
     'head': [
-      root + 'css/normalize.css',
-      root + 'css/global.css'
-    ]
+      root + 'css/view.css',
+      root + 'css/font-awesome.css'
+    ],
+    'web-components': [
+      'slide-panels.css',
+      'modal-overlay.css',
+      'tab-panels.css',
+      'detail-box.css',
+      'notice-bar.css',   
+      'item-lists.css'
+    ].map(name => root + 'css/web-components/' + name),
   }
 };
 
@@ -79,5 +88,3 @@ gulp.task('watch', () => {
   gulp.watch([root + 'css/**/*', '!' + root + 'css/compiled/**/*'], compileCSS);
   gulp.watch([root + 'templates/**/*'], gulp.parallel(renderTemplates));
 });
-
-repoFetch.then(r => gulp.parallel('build')());

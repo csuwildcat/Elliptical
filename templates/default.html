@@ -10,9 +10,15 @@
       {% block svg %}{% endblock %}
     </svg>
 
-    {% include "nav.html" %}
+    {% if no_nav %}
     
-    <aside id="sidebar">{% block sidebar %}{% endblock %}</aside>
+    {% else %}
+      {% include "nav.html" %}
+    {% endif %}
+  
+    <slide-panels id="overlay_panels">
+      {% block overlays %}{% endblock %}
+    </slide-panels>
 
     <main>
       {% block content %}{% endblock %}
@@ -23,8 +29,9 @@
     {% else %}
       {% include "footer.html" %}
     {% endif %}
-    
 
+    {% block modals %}{% endblock %}
+    
     {% block scripts %}
       <script src="/js/compiled/body.js"></script>
     {% endblock %}
