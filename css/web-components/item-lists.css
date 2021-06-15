@@ -5,9 +5,15 @@ persona-list {
   text-align: center;
 }
 
+persona-list > ul {
+  flex-wrap: wrap;
+}
+
 persona-list > ul > li {
+  flex: 1;
   width: 8em;
-  margin: 0 1em;
+  max-width: 7em;
+  margin: 0 1em 2em;
   cursor: pointer;
   will-change: transform, opacity;
 }

@@ -1,0 +1,47 @@
+
+{% set no_nav = true %}
+{% set css = ['view','popup', 'request-permission/prompt'] %}
+{% set js = [{ path: 'request-permission/prompt', module: true }] %}
+
+
+{% extends "default.html" %}
+
+  {% block content %}
+
+    <header class="panel-header">
+      <h2>This site wants to connect with you <span class="permission-request">and is requesting permissions</span></h2>
+    </header>
+
+
+    
+
+    <label id="create_pairwise_checkbox" class="permission-request">
+      <input type="checkbox" checked="checked" /> <i class="fas fa-user"></i> Create a new DID
+    </label>
+    <button id="create_pairwise_button" options="action"><i class="fas fa-user"></i> Create a new DID</button>
+
+    <p>
+      <em>Better privacy if you don't need interactions linked to a Persona.</em>
+    </p>
+
+    <hr/>
+
+    <div id="personas">
+      <persona-list id="persona_list" options="autoload"></persona-list>
+      <p>
+        Use one of your Personas if you want your activities here linked to others across the Web.
+      </p>
+    </div>
+    
+    <ul id="permission_list"></ul>
+
+    <button id="allow_permissions" options="action"><i class="fas fa-user"></i>Allow</button>
+    <button id="deny_permissions" view-action="close" options="cancel">Deny</button>
+
+  {% endblock %}
+
+  {% block footer %}
+    <div banner="warning">
+      Block this site from requesting DIDs? <button id="block_did_requests" view-action="close" options="cancel">Block</button>
+    </div>
+  {% endblock %}

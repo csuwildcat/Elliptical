@@ -7,33 +7,79 @@
   </head>
 
   <body>
-    Wallet Frame
+    Carbon Wallet
     <script src="/js/connect.js"></script>
 
     <script type="module">
+      import { DID } from '/js/modules/did.js';
       import { DOM } from '/js/modules/dom.js';
+      import { UUID } from '/js/modules/uuid.js';
       
-      navigator.did.protocolHandler = async function (channel, topic, data, origin) {
-        return new Promise((resolve, reject) => {
+      navigator.did.protocolHandler = async function (channel, topic, message, origin) {
+        
+        return new Promise(async (resolve, reject) => {
           if (channel.protocol === 'web+did:') {
             switch(topic) {
               case 'requestDID': 
-                if (confirm('Send a DID to ' + origin + '?')) {
-                  let popup = DOM.popup(location.origin + '/request-did', {
-                    title: 'Carbon - DID Wallet',
-                    width: 500,
-                    height: 650,
-                    closeOnBlur: true,
-                    popupSettings: {
-                      origin: origin
-                    },
-                    onBeforeUnload: e => resolve(popup.returnValue)
+                var peer = await DID.getConnection(origin);
+                if (false) {
+                  var nonce = UUID.v4();
+                  resolve({
+                    did: peer.did,
+                    nonce: nonce,
+                    signature: await DID.sign(peer.did, message.challenge + nonce)
                   })
                 }
                 else {
-                  channel.sendError('Denied');
+                  if (!message.prompt) return reject({ did: null })
+                  var popup = DOM.popup(location.origin + '/request-did', {
+                    title: 'Carbon - DID Wallet',
+                    width: 500,
+                    height: 650,
+                    //closeOnBlur: true,
+                    invocationData: {
+                      ...message,
+                      origin: origin
+                    },
+                    onBeforeUnload: e => {
+                      resolve(popup.returnValue || { did: null })
+                    }
+                  })
                 }
+                // else {
+                //   channel.sendError('Denied');
+                // }
               break;
+
+              case 'requestPermissions': 
+                console.log(arguments);
+                var popup = DOM.popup(location.origin + '/request-permissions', {
+                  title: 'Carbon - DID Wallet',
+                  width: 500,
+                  height: 650,
+                  //closeOnBlur: true,
+                  invocationData: {
+                    ...message,
+                    origin: origin
+                  },
+                  async onBeforeUnload(e){
+                    var did = popup?.returnValue?.did;
+                    if (did) {
+                      resolve({
+                        permitted: popup?.returnValue?.permitted || false,
+                        did: did,
+                        nonce: UUID.v4(),
+                        signature: await DID.sign(did, message.challenge + nonce)
+                      })
+                    }
+                    else reject();
+                  }
+                });
+                // else {
+                //   channel.sendError('Denied');
+                // }
+              break;
+
             }
           }
         });

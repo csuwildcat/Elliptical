@@ -62,7 +62,7 @@ var DOM = {
       popup.addEventListener('beforeunload', options.onBeforeUnload)
     }
 
-    popup.popupSettings = options.popupSettings;
+    popup.invocationData = options.invocationData;
     popup.focus();
 
     return popup;

@@ -24,7 +24,7 @@ var assets = {
     ].map(name => root + 'js/web-components/' + name),
     body: [
       root + 'js/global.js'
-    ],
+    ]
   },
   css: {
     'head': [
@@ -78,7 +78,7 @@ async function renderTemplates() {
         
       }
     }))
-    .pipe(gulp.dest('./'))
+    .pipe(gulp.dest('./views/'))
 };
 
 gulp.task('build', gulp.series(compileCSS, compileJS, renderTemplates));

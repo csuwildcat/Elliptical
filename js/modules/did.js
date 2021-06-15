@@ -4,6 +4,9 @@ import {Natives} from '/js/modules/natives.js';
 import { Storage } from '/js/modules/storage.js';
 import CryptoUtils from '/js/modules/crypto-utils.js';
 import DIDKey from '/js/modules/did-key/index.js';
+import '/js/modules/ion.js';
+import { generateKeyPair } from '/node_modules/jose/dist/browser/util/generate_key_pair.js';
+import '/js/secp256k1.js';
 
 let PeerModel = {
   permissions: {}
@@ -29,17 +32,21 @@ const jwsHeader = {
 
 let DID = {
   async create (method, options = {}){
-    let did;
-    switch (method) {
+    let entry;
+    switch (method) {  
+      case 'key': entry = await DIDKey.create(); 
+        break;
+
       case 'ion':
-        did = {
-          id: UUID.generate()
+      default:
+        let did = new ION.DID();
+        entry = {
+          id: await did.getURI(),
+          state: await did.getAllOperations()
         }
-      case 'key':
-      default: did = await DIDKey.create()
     }
-    Storage.set('dids', did);
-    return did;
+    Storage.set('dids', entry);
+    return entry;
   },
   async createPersona(persona = {}){
     let did = await this.create();
@@ -59,8 +66,7 @@ let DID = {
     return Storage.get('dids', didUri);
   },
   async getConnection (uri, options = {}){
-    let entry = await Storage.get('connections', uri);
-    return entry || createConnection(uri);
+    return await Storage.get('connections', uri);
   },
   async setConnection (obj){
     await Storage.set('connections', obj);

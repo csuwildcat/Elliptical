@@ -2,6 +2,8 @@
 import { Router } from '/js/modules/router.js';
 import { DOM } from '/js/modules/dom.js';
 
+// import '/js/transmute-keys.js';
+
 var panels = {
   personas: false,
   connections: false,

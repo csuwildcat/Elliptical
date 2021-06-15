@@ -23,7 +23,7 @@
   
     <link rel="stylesheet" href="/css/popup.css" />
   
-    <link rel="stylesheet" href="/css/request-did/prompt.css" />
+    <link rel="stylesheet" href="/css/request-permission/prompt.css" />
   
 
   <script type="module" src="/js/compiled/web-components.js"></script>
@@ -95,24 +95,34 @@
       
 
     <header class="panel-header">
-      <h2>This site is requesting a DID from you</h2>
+      <h2>This site wants to connect with you <span class="permission-request">and is requesting permissions</span></h2>
     </header>
+
+
     
-    <h5>Create a new DID just for this site</h5>
-    <p>
-      Provides better privacy if you don't need interactions linked to a Persona.
-    </p>
+
+    <label id="create_pairwise_checkbox" class="permission-request">
+      <input type="checkbox" checked="checked" /> <i class="fas fa-user"></i> Create a new DID
+    </label>
     <button id="create_pairwise_button" options="action"><i class="fas fa-user"></i> Create a new DID</button>
+
+    <p>
+      <em>Better privacy if you don't need interactions linked to a Persona.</em>
+    </p>
 
     <hr/>
 
     <div id="personas">
       <persona-list id="persona_list" options="autoload"></persona-list>
-      <h5>Use one of your Personas</h5> 
       <p>
-        Allows you to link your interactions to a Persona others may recognize.
+        Use one of your Personas if you want your activities here linked to others across the Web.
       </p>
     </div>
+    
+    <ul id="permission_list"></ul>
+
+    <button id="allow_permissions" options="action"><i class="fas fa-user"></i>Allow</button>
+    <button id="deny_permissions" view-action="close" options="cancel">Deny</button>
 
   
     </main>
@@ -134,9 +144,7 @@
     
 
     
-      <script src="/js/jshashes.js" ></script>
-    
-      <script src="/js/request-did/prompt.js" type=module></script>
+      <script src="/js/request-permission/prompt.js" type=module></script>
     
 
   </body>

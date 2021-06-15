@@ -1,24 +1,22 @@
 
-{% set no_footer = true %}
 {% set no_nav = true %}
-{% set css = ['view','popup', 'request-did/request-did'] %}
-{% set js = [{ path: 'jshashes' }, { path: 'request-did/request-did', module: true }] %}
+{% set css = ['view','popup', 'request-did/prompt'] %}
+{% set js = [{ path: 'jshashes' }, { path: 'request-did/prompt', module: true }] %}
+
 
 {% extends "default.html" %}
-
 
   {% block content %}
 
     <header class="panel-header">
       <h2>This site is requesting a DID from you</h2>
-      <span view-action="close" flex="left">✕</span>
     </header>
     
     <h5>Create a new DID just for this site</h5>
     <p>
       Provides better privacy if you don't need interactions linked to a Persona.
     </p>
-    <button id="create_pairwise_did" options="action"><i class="fas fa-user"></i> Create a new DID</button>
+    <button id="create_pairwise_button" options="action"><i class="fas fa-user"></i> Create a new DID</button>
 
     <hr/>
 
@@ -30,9 +28,10 @@
       </p>
     </div>
 
-    <footer banner="warning">
-      Block this site from requesting DIDs? <button id="block_did_requests" view-action="close" options="cancel">Block</button>
-    </footer>
-
   {% endblock %}
 
+  {% block footer %}
+    <div banner="warning">
+      Block this site from requesting DIDs? <button id="block_did_requests" view-action="close" options="cancel">Block</button>
+    </div>
+  {% endblock %}

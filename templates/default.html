@@ -27,7 +27,9 @@
     {% if no_footer %}
     
     {% else %}
-      {% include "footer.html" %}
+      <footer id="footer">
+        {% block footer %}{% endblock %}
+      </footer>    
     {% endif %}
 
     {% block modals %}{% endblock %}

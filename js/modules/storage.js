@@ -2,7 +2,7 @@
 import { Natives } from '/js/modules/natives.js';
 import Dexie from '/js/modules/dexie.js';
 
-const db = new Dexie('DIDWebExtension');
+const db = new Dexie('DIDWallet');
 
 db.version(1).stores({
   dids: 'id',

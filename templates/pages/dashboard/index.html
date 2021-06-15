@@ -5,7 +5,6 @@
 
 {% extends "default.html" %}
 
-
   {% block overlays %}
 
       <slide-panel id="nav" class="sidenav" options="left pointer-events" >
@@ -90,9 +89,18 @@
             </nav>
           </header>
           <section>
-            Foo
-            <div class="test-block"></div>
-            Bar
+            <nav toolbar>
+              <input placeholder="Search your notifications"/>
+            </nav>
+
+            <div id="no_apps" class="no-panel-content">
+              <i class="fas fa-bell"></i>
+              <h3>Apps</h3>
+              <p>
+                Notifications about connection inquiries, app permission requests, and interactions 
+                with other DID entities will appear here. 
+              </p>
+            </div>
           </section>
         </slide-panel>
 
@@ -152,11 +160,11 @@
                 </nav>
 
                 <div id="no_apps" class="no-panel-content">
-                  <i class="fas fa-people-arrows"></i>
+                  <i class="fas fa-window-maximize"></i>
                   <h3>Apps</h3>
                   <p>
                     You'll see entries appear here for any apps you connect with. Apps are websites 
-                    or installable apps you share any of your data with.
+                    or locally installed web apps you choose to share some part of your data with.
                   </p>
                 </div>
 

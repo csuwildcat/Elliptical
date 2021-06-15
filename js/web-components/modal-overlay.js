@@ -33,8 +33,8 @@ var ModalOverlay = globalThis.ModalOverlay = class ModalOverlay extends HTMLElem
         DOM.ready.then(e => {
           DOM.fireEvent(this, current !== null ? 'modalopen' : 'modalclose')
         })
-      }
     }
+  }
 };
 
 customElements.define('modal-overlay', ModalOverlay)
