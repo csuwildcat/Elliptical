@@ -42,6 +42,7 @@
     "@transmute/did-key.js": "^0.2.1-unstable.35",
     "@decentralized-identity/ion-sdk": "0.4.1",
     "dexie": "3.0.3",
+    "@nano-sql/core": "2.3.7",
     "dompurify": "2.2.6",
     "jose": "^3.10.0",
     "jshashes": "1.0.8",

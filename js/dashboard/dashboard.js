@@ -43,5 +43,5 @@ nav_toggle.addEventListener('pointerup', e => {
 
 DOM.delegateEvent('click', '.install-handler', e => {
   console.log(e);
-  navigator.registerProtocolHandler('web+did', location.origin + '/did-connect/?params=%s', 'Carbon - DID Wallet');
+  navigator.registerProtocolHandler('did', location.origin + '/did-connect/?params=%s', 'Carbon - DID Wallet');
 })

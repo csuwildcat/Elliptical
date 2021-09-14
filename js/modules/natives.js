@@ -1,5 +1,6 @@
 
-var Natives = {
+
+const Natives = {
   merge: function merge(target, source) {
     Object.entries(source).forEach(([key, value]) => {
       value && typeof value === 'object' ? 
@@ -7,6 +8,12 @@ var Natives = {
       target[key] = value;
     });
     return target;
+  },
+  pick(source, entries){
+    return entries.reduce((obj, key) => {
+      if (key in source) obj[key] = source[key];
+      return obj;
+    }, {})
   }
 }
 
