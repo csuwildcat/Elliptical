@@ -36,6 +36,7 @@ class RenderList extends HTMLElement {
       this.setAttribute('empty', '');
       return;
     };
+    console.log(items);
     this.items = Array.isArray(items) ? items : Object.values(items);
     let list = this.querySelector('[render-list-container]');
     let _list = await this.renderList(options);
@@ -58,8 +59,10 @@ class RenderList extends HTMLElement {
       super(options);
     }
     async renderList(options = {}){
+      
       let list = await super.renderList(options);
           list.setAttribute('list', 'block');
+          console.log(list);
       return list;
     }
     async renderItem(persona, options = {}) {

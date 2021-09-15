@@ -10,7 +10,8 @@
 :root[route*="view=notifications"] #nav [href*="view=notifications"],
 :root[route*="view=credentials"] #nav [href*="view=credentials"],
 :root[route*="view=connections"] #nav [href*="view=connections"],
-:root[route*="view=apps"] #nav [href*="view=apps"] {
+:root[route*="view=apps"] #nav [href*="view=apps"],
+:root[route*="view=sign_verify"] #nav [href*="view=sign_verify"] {
   color: var(--page-text-hover);
   background: var(--element-bk-hover);
 }
@@ -20,7 +21,8 @@
 :root[route*="view=notifications"] #nav [href*="view=notifications"] [class*="fa-"],
 :root[route*="view=credentials"] #nav [href*="view=credentials"] [class*="fa-"],
 :root[route*="view=connections"] #nav [href*="view=connections"] [class*="fa-"],
-:root[route*="view=apps"] #nav [href*="view=apps"] [class*="fa-"] {
+:root[route*="view=apps"] #nav [href*="view=apps"] [class*="fa-"],
+:root[route*="view=sign_verify"] #nav [href*="view=sign_verify"] [class*="fa-"] {
   color: rgb(var(--active-color));
 }
 

@@ -53,14 +53,14 @@ var Data = {
     if (typeof type === 'object') type = this.getTypeKey(type);
     if (templates[type]) return templates[type]
     else {
-      let template = templates[type] = await import('/extension/views/data-viewer/templates/' + type + '/template.js')
+      let template = templates[type] = await import('/extension/app/data-viewer/templates/' + type + '/template.js')
       .then(module => module.default)
       .catch(e => {
         console.log(e);
         return e;
       });
       template.type = type;
-      template.styles = '/extension/views/data-viewer/templates/' + type + '/template.css';
+      template.styles = '/extension/app/data-viewer/templates/' + type + '/template.css';
       return template;
     }
   },

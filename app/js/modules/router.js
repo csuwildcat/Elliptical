@@ -62,11 +62,11 @@ var Router = globalThis.Router = Object.assign({
       if (event && event.type !== 'popstate') event.preventDefault();
       if (Router.initialized){
         if ((newState.href !== oldState.href) && (event ? event.type !== 'popstate' : event === false)) {
-          history.pushState(newState, 'ION' + (newState.title ? ' - ' + newState.title : ''), newState.search);
+          history.pushState(newState, 'Carbon' + (newState.title ? ' - ' + newState.title : ''), newState.search);
         }
       }
       else {
-        history.replaceState(newState, 'ION' + (newState.title ? ' - ' + newState.title : ''), newState.search);
+        history.replaceState(newState, 'Carbon' + (newState.title ? ' - ' + newState.title : ''), newState.search);
       }
       document.documentElement.setAttribute('route', newState.path + newState.search);
       Router.last = newState;

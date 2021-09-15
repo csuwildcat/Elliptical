@@ -78,7 +78,7 @@ async function renderTemplates() {
         
       }
     }))
-    .pipe(gulp.dest('./views/'))
+    .pipe(gulp.dest('./app/'))
 };
 
 gulp.task('build', gulp.series(compileCSS, compileJS, renderTemplates));

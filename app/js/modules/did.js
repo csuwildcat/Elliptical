@@ -5,7 +5,6 @@ import { Storage } from '/js/modules/storage.js';
 import CryptoUtils from '/js/modules/crypto-utils.js';
 import DIDKey from '/js/modules/did-key/index.js';
 import '/js/modules/ion.js';
-import { generateKeyPair } from '/node_modules/jose/dist/browser/util/generate_key_pair.js';
 import '/js/secp256k1.js';
 
 let PeerModel = {

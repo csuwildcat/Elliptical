@@ -8,11 +8,12 @@ var panels = {
   personas: false,
   connections: false,
   data: false,
+  sign_verify: false,
 };
 async function initializePanel(panel){
   if (panels[panel] === false) {
     let module = panels[panel] = await import(`/js/dashboard/panels/${panel}.js`);
-    if (module.initialize) await panels[panel].initialize();
+    if (module.initialize) await module.initialize();
   }
 }
 
@@ -26,6 +27,7 @@ Router.filters = [
       let lastView = oldState.params.view || 'personas';
       let currentView = state.params.view || 'personas';
       await initializePanel(currentView);
+      console.log(currentView);
       content_panels.open(currentView);
     }
   }

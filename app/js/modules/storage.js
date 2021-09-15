@@ -11,13 +11,16 @@ const ready = nano().createDatabase({
     {
       name: 'dids',
       model: {
-        "id:string": { pk: true, immutable: true }
+        "id:string": { pk: true, immutable: true },
+        'state:any': {}
       }
     },
     {
       name: 'personas',
       model: {
-        "id:string": { pk: true, immutable: true }
+        "id:string": { pk: true, immutable: true },
+        'name:string': {},
+        'icon:string': {}
       }
     },
     {
@@ -43,14 +46,6 @@ const ready = nano().createDatabase({
     }
   ]
 }) 
-
-// db.version(1).stores({
-//   dids: 'id',
-//   personas: 'id',
-//   connections: 'id,did',
-//   data: 'id,type,origin',
-//   apps: 'id'
-// });
 
 var Storage = {
   // query (store, keys){
@@ -107,6 +102,7 @@ var Storage = {
   },
 
   async set (table, entries){
+    console.log(entries);
     return this.txn(db => db(table).query('upsert', entries).exec()).catch(e => console.log(e));
   },
 

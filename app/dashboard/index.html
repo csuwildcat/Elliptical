@@ -19,11 +19,7 @@
   <link rel="stylesheet" href="/css/compiled/head.css">
 
   
-    <link rel="stylesheet" href="/css/view.css" />
-  
-    <link rel="stylesheet" href="/css/popup.css" />
-  
-    <link rel="stylesheet" href="/css/request-permission/prompt.css" />
+    <link rel="stylesheet" href="/css/dashboard/dashboard.css" />
   
 
   <script type="module" src="/js/compiled/web-components.js"></script>
@@ -89,62 +85,288 @@
   
     <slide-panels id="overlay_panels">
       
+
+      <slide-panel id="nav" class="sidenav" options="left pointer-events" >
+
+        <header>
+          <svg><use href="#logo"></use></svg><h1>Carbon</h1>
+        </header>
+
+        <section>
+          <input class="global-search" type="search" placeholder="Search your identity" />
+          <nav>
+            <a href="?view=personas"><i class="fas fa-user"></i>My Personas</a>
+            <a href="?view=connections"><i class="fas fa-people-arrows"></i>Connections</a>
+            <a href="?view=data"><i class="fas fa-database"></i>Data &amp; Credentials</a>
+            <a href="?view=apps"><i class="fas fa-window-maximize"></i>Apps</a>
+            <a href="?view=sign_verify"><i class="fas fa-signature"></i>Sign &amp; Verify</a>
+            <a href="?view=notifications"><i class="fas fa-bell"></i>Notifications</a>
+          </nav>
+        </section>
+
+      </slide-panel>
+
+  
     </slide-panels>
 
     <main>
       
 
-    <header class="panel-header">
-      <h2>This site wants to connect with you <span class="permission-request">and is requesting permissions</span></h2>
-    </header>
+      <header id="global_header">
+        <a id="nav_toggle" before-content="☰" tabindex="0"></a><h1>Identity</h1>
+        <nav>
+
+          <input class="global-search" type="search" placeholder="Search your identity" />
+        </nav>
+      </header>
+
+      <slide-panels id="content_panels">
+
+        <slide-panel id="personas" options="bottom fade">
+          <header>
+            <h2><i class="fas fa-user"></i>My Personas</h2>
+            <nav>
+              <!-- <a>Link 1</a>
+              <a>Link 2</a>
+              <a>Link 3</a>
+              <a>✕</a> -->
+              <button class="install-handler">Install Handler</button>
+            </nav>
+          </header>
+
+          <section>
 
 
-    
+            <div id="persona_dids" class="render-list-wrap">
 
-    <label id="create_pairwise_checkbox" class="permission-request">
-      <input type="checkbox" checked="checked" /> <i class="fas fa-user"></i> Create a new DID
-    </label>
-    <button id="create_pairwise_button" options="action"><i class="fas fa-user"></i> Create a new DID</button>
+              <persona-list class="render-list" id="persona_did_list" options="autoload"></persona-list>     
 
-    <p>
-      <em>Better privacy if you don't need interactions linked to a Persona.</em>
-    </p>
+              <nav id="persona_did_nav" toolbar>
+                <input placeholder="Search Personas"/>
+                <button modal="create-persona" options="icon">+ <i class="fas fa-user"></i></button>
+              </nav>
 
-    <hr/>
+              <div id="no_personas" class="no-panel-content">
+                <i class="fas fa-users"></i>
+                <h3>Create a Persona</h3>
+                <p>Personas are public versions of your identity you share with other people, 
+                  apps, and services. Personas can be linked to you, so only use a Persona if 
+                  you want to interact publicly.
+                </p>
+                <button modal="create-persona" type="button">+ Create a new Persona</button>
+              </div>
 
-    <div id="personas">
-      <persona-list id="persona_list" options="autoload"></persona-list>
-      <p>
-        Use one of your Personas if you want your activities here linked to others across the Web.
-      </p>
-    </div>
-    
-    <ul id="permission_list"></ul>
+            </div>
+          </section>
+        </slide-panel>
 
-    <button id="allow_permissions" options="action"><i class="fas fa-user"></i>Allow</button>
-    <button id="deny_permissions" view-action="close" options="cancel">Deny</button>
+        <slide-panel id="notifications" options="bottom fade" >
+          <header>
+            <h2><i class="fas fa-bell"></i>Notifications</h2>
+            <nav>
+              <!-- <a>Link 1</a>
+              <a>Link 2</a>
+              <a>Link 3</a>
+              <a>✕</a> -->
+            </nav>
+          </header>
+          <section>
+            <nav toolbar>
+              <input placeholder="Search your notifications"/>
+            </nav>
+
+            <div id="no_apps" class="no-panel-content">
+              <i class="fas fa-bell"></i>
+              <h3>Apps</h3>
+              <p>
+                Notifications about connection inquiries, app permission requests, and interactions 
+                with other DID entities will appear here. 
+              </p>
+            </div>
+          </section>
+        </slide-panel>
+
+        <slide-panel id="connections" options="bottom fade" >
+          <header>
+            <h2><i class="fas fa-people-arrows"></i>Connections</h2>
+            <nav>
+              <!-- <a>Link 1</a>
+              <a>Link 2</a>
+              <a>Link 3</a>
+              <a>✕</a> -->
+            </nav>
+          </header>
+          <section>
+
+            <div id="connections_content" class="render-list-wrap">
+
+              <connection-list class="render-list" id="connections_list" options="autoload"></connection-list>
+
+              <nav toolbar>
+                <input placeholder="Search your connections"/>
+              </nav>
+
+              <div id="no_connections" class="no-panel-content">
+                <i class="fas fa-people-arrows"></i>
+                <h3>Making Connections</h3>
+                <p>
+                  Connections are formed when you interact with other entities, like people, 
+                  organizations, apps, and services. Your connections will appear here as 
+                  they are created over time.
+                </p>
+              </div>
+
+            </div>
+
+          </section>
+        </slide-panel>
+
+        <slide-panel id="apps" options="bottom fade" >
+          <header>
+            <h2><i class="fas fa-window-maximize"></i>Apps</h2>
+            <nav>
+              <!-- <a>Link 1</a>
+              <a>Link 2</a>
+              <a>Link 3</a>
+              <a>✕</a> -->
+            </nav>
+          </header>
+          <section>
+
+              <div id="app_content" class="render-list-wrap">
+
+                <app-list class="render-list" id="app_list" options="autoload"></app-list>
+
+                <nav toolbar>
+                  <input placeholder="Search your apps"/>
+                </nav>
+
+                <div id="no_apps" class="no-panel-content">
+                  <i class="fas fa-window-maximize"></i>
+                  <h3>Apps</h3>
+                  <p>
+                    You'll see entries appear here for any apps you connect with. Apps are websites 
+                    or locally installed web apps you choose to share some part of your data with.
+                  </p>
+                </div>
+
+              </div>
+
+          </section>
+        </slide-panel>
+
+        <slide-panel id="data" options="bottom fade" >
+          <header>
+            <h2><i class="fas fa-database"></i>Data</h2>
+            <nav>
+              <!-- <a>Link 1</a>
+              <a>Link 2</a>
+              <a>Link 3</a>
+              <a>✕</a> -->
+            </nav>
+          </header>
+          <section>
+
+          <div id="data_content" class="render-list-wrap">
+
+            <data-browser class="render-list" id="data_list" options="autoload"></data-browser>
+
+            <nav toolbar>
+              <input placeholder="Search your data"/>
+            </nav>
+
+            <div id="no_data" class="no-panel-content">
+              <i class="fas fa-database"></i>
+              <h3>Data</h3>
+              <p>
+                Any data you generate during your identity and app interactions will be available here. 
+                You can come here to search and view your data at any time.
+              </p>
+            </div>
+
+          </div>
+        </slide-panel>
+
+        <slide-panel id="global_search" options="bottom fade" >
+          <header>
+            <h2><i class="fas fa-search"></i>Searching for "<span id="global_search_query"></span>"</h2>
+            <nav>
+              <!-- <a>Link 1</a>
+              <a>Link 2</a>
+              <a>Link 3</a>
+              <a>✕</a> -->
+            </nav>
+          </header>
+          <section>
+            Foo
+            <div class="test-block"></div>
+            Bar
+          </section>
+        </slide-panel>
+
+        <slide-panel id="sign_verify" options="bottom fade" >
+          <header>
+            <h2><i class="fas fa-signature"></i>Searching for "<span id="global_search_query"></span>"</h2>
+            <nav>
+              <!-- <a>Link 1</a>
+              <a>Link 2</a>
+              <a>Link 3</a>
+              <a>✕</a> -->
+            </nav>
+          </header>
+          <section>
+            Foo
+            <div class="test-block"></div>
+            Bar
+          </section>
+        </slide-panel>
+        
+      </slide-panels>
 
   
     </main>
 
     
-      <footer id="footer">
-        
-    <div banner="warning">
-      Block this site from requesting DIDs? <button id="block_did_requests" view-action="close" options="cancel">Block</button>
-    </div>
-  
-      </footer>    
+    
     
 
     
+
+    <modal-overlay id="persona_create_modal">
+      <article>
+        <header>
+          <h3>Create a new Persona</h3><span modal-close></span>
+        </header>
+
+        <section>
+          <form id="persona_create_form">
+            <label>Name your new Persona:
+              <input id="persona_create_name" placeholder="Ex: Public, Personal, Career, etc." required pattern="\w+"/>
+            </label>
+            <label>Pick an icon to represent this Persona:</label>
+            <ul id="persona_create_icons" class="persona-selection-list"></ul>
+          </form>
+        </section>
+
+        <footer>
+          <button type="button" modal-close>Cancel</button>
+          <button id="persona_create_submit" type="submit" form="persona_create_form">Create</button>
+        </footer>
+      </article>
+    </modal-overlay>
+
+    <modal-overlay id="data_viewer"></modal-overlay>
+
+  
     
     
       <script src="/js/compiled/body.js"></script>
     
 
     
-      <script src="/js/request-permission/prompt.js" type=module></script>
+      <script src="/js/jshashes.js" ></script>
+    
+      <script src="/js/dashboard/dashboard.js" type=module></script>
     
 
   </body>
