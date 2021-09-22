@@ -8,7 +8,7 @@ const mergeStreams = require('merge-stream');
 const nunjucksRender = require('gulp-nunjucks-render');
 const axios = require('axios');
 
-const root = '';
+const root = 'app/assets/';
 const compiledJS = root + 'js/compiled/';
 const compiledCSS = root + 'css/compiled/';
 
@@ -71,9 +71,9 @@ async function compileCSS(){
 }
 
 async function renderTemplates() {
-  return gulp.src(root + 'templates/pages/**/*.html')
+  return gulp.src('templates/pages/**/*.html')
     .pipe(nunjucksRender({
-      path: [root + 'templates', root + 'templates/partials', root + 'templates/pages'],
+      path: ['templates', 'templates/partials', 'templates/pages'],
       data: {
         
       }
@@ -86,5 +86,5 @@ gulp.task('build', gulp.series(compileCSS, compileJS, renderTemplates));
 gulp.task('watch', () => {
   gulp.watch([root + 'js/**/*', '!' + root + 'js/compiled/**/*'], compileJS);
   gulp.watch([root + 'css/**/*', '!' + root + 'css/compiled/**/*'], compileCSS);
-  gulp.watch([root + 'templates/**/*'], gulp.parallel(renderTemplates));
+  gulp.watch(['templates/**/*'], gulp.parallel(renderTemplates));
 });

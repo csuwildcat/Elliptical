@@ -1,4 +1,4 @@
-# Carbon Identity Wallet
+# Elliptical Identity Wallet
 
 ### Installation
 

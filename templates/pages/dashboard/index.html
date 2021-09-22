@@ -10,7 +10,7 @@
       <slide-panel id="nav" class="sidenav" options="left pointer-events" >
 
         <header>
-          <svg><use href="#logo"></use></svg><h1>Carbon</h1>
+          <svg><use href="#logo"></use></svg><h1>Elliptical</h1>
         </header>
 
         <section>
@@ -32,7 +32,7 @@
   {% block content %}
 
       <header id="global_header">
-        <a id="nav_toggle" before-content="☰" tabindex="0"></a><h1>Identity</h1>
+        <a id="nav_toggle" before-content="☰" tabindex="0"></a><h1>Elliptical</h1>
         <nav>
 
           <input class="global-search" type="search" placeholder="Search your identity" />
@@ -54,7 +54,6 @@
           </header>
 
           <section>
-
 
             <div id="persona_dids" class="render-list-wrap">
 
@@ -245,7 +244,6 @@
 
   {% endblock %}
 
-
   {% block modals %}
 
     <modal-overlay id="persona_create_modal">
@@ -272,6 +270,20 @@
     </modal-overlay>
 
     <modal-overlay id="data_viewer"></modal-overlay>
+
+    <modal-overlay id="did_viewer">
+      <article>
+        <header>
+          <h3></h3><span modal-close=""></span>
+        </header>
+
+        <section></section>
+
+        <footer>
+          <button type="button" modal-close="">Cancel</button>
+        </footer>
+      </article>
+    </modal-overlay>
 
   {% endblock %}
     
