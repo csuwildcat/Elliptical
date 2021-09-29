@@ -8,6 +8,8 @@ const mergeStreams = require('merge-stream');
 const nunjucksRender = require('gulp-nunjucks-render');
 const axios = require('axios');
 
+const schemaOrg = require('@postman-open-tech/schemaorgjsonschema');
+
 const root = 'app/assets/';
 const compiledJS = root + 'js/compiled/';
 const compiledCSS = root + 'css/compiled/';
@@ -21,6 +23,7 @@ var assets = {
       'modal-overlay.js',
       'detail-box.js',
       'notice-bar.js',
+    //  'schema-form.js',
     ].map(name => root + 'js/web-components/' + name),
     body: [
       root + 'js/global.js'
@@ -37,7 +40,8 @@ var assets = {
       'tab-panels.css',
       'detail-box.css',
       'notice-bar.css',   
-      'item-lists.css'
+      'item-lists.css',
+     // 'schema-form.css',
     ].map(name => root + 'css/web-components/' + name),
   }
 };
@@ -80,6 +84,22 @@ async function renderTemplates() {
     }))
     .pipe(gulp.dest('./app/'))
 };
+
+async function compileSchemas() {
+  return new Promise(async resolve => {
+    const schemaSource = 'node_modules/@postman-open-tech/schemaorgjsonschema/schema';
+    const schemaDestination = 'app/assets/schemas/schema.org';
+    await fs.ensureDir(schemaDestination);
+    try {
+      await fs.copy(schemaSource, schemaDestination);
+    } catch (err) {
+      console.error(err);
+    }
+    resolve();
+  });
+};
+
+gulp.task('schemas', compileSchemas);
 
 gulp.task('build', gulp.series(compileCSS, compileJS, renderTemplates));
 

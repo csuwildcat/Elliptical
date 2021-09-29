@@ -30,7 +30,7 @@ function clearPersonaCreateForm() {
 
 function getPersonaCreateValues() {
   return {
-    name: persona_create_name.value,
+    persona: persona_create_name.value,
     icon: persona_create_icons.querySelector('input:checked').nextElementSibling.className
   }
 }
@@ -54,7 +54,7 @@ DOM.delegateEvent('pointerup', '[modal="create-persona"]', e => {
 persona_create_form.addEventListener('submit', async (e) => {
   e.preventDefault(e);
   let persona = getPersonaCreateValues();
-  DID.createPersona(persona).then(z => {   
+  DID.create(persona).then(z => {   
     persona_did_list.add(persona);
     persona_create_modal.close();
     new NoticeBar({

@@ -15,7 +15,12 @@ var DOM = {
     }
     return node;
   },
-  skipAnimationFrame: fn => requestAnimationFrame(() => requestAnimationFrame(fn)),
+  skipAnimationFrame: fn => new Promise(resolve => requestAnimationFrame(() => {
+    requestAnimationFrame(function(){
+      if (fn) fn();
+      resolve();
+    })
+  })),
   fireEvent(node, type, options = {}){
     return node.dispatchEvent(new CustomEvent(type, Object.assign({
       bubbles: true

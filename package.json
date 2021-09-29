@@ -33,21 +33,22 @@
     "npx": "^10.2.2"
   },
   "dependencies": {
+    "@decentralized-identity/ion-sdk": "0.4.1",
     "@decentralized-identity/ion-tools": "0.0.1",
+    "@nano-sql/core": "2.3.7",
+    "@postman-open-tech/schemaorgjsonschema": "^13.0.1",
     "@transmute/did-key-bls12381": "^0.2.1-unstable.35",
     "@transmute/did-key-ed25519": "^0.2.1-unstable.35",
     "@transmute/did-key-p384": "^0.2.1-unstable.20",
     "@transmute/did-key-secp256k1": "^0.2.1-unstable.35",
     "@transmute/did-key-x25519": "^0.2.1-unstable.35",
     "@transmute/did-key.js": "^0.2.1-unstable.35",
-    "@decentralized-identity/ion-sdk": "0.4.1",
-    "dexie": "3.0.3",
-    "@nano-sql/core": "2.3.7",
     "dompurify": "2.2.6",
+    "generate-schema": "2.6.0",
     "jose": "^3.10.0",
     "jshashes": "1.0.8",
     "rfc4648": "1.4.0",
-    "tweetnacl": "1.0.3",
+    "schema-org-json-schemas": "1.4.2",
     "uuid": "^8.3.2"
   }
 }

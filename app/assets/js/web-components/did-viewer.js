@@ -1,7 +1,7 @@
 
 import '/assets/js/modules/dom.js';
 
-var DIDViewer = globalThis.ModalOverlay = class DIDViewer extends HTMLElement {
+var DIDViewer = globalThis.DIDViewer = class DIDViewer extends HTMLElement {
   static get observedAttributes() {
     return ['open'];
   }

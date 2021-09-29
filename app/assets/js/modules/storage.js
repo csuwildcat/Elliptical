@@ -12,17 +12,14 @@ const ready = nano().createDatabase({
       name: 'dids',
       model: {
         "id:string": { pk: true, immutable: true },
-        'resolvableId:string': {},
         'equivalentIds:array': {},
-        'lineage:any': {}
-      }
-    },
-    {
-      name: 'personas',
-      model: {
-        "id:string": { pk: true, immutable: true },
-        'name:string': {},
+        'keys:object': {},
+        'state:any': {},
+        'persona:string': {},
         'icon:string': {}
+      },
+      indexes: {
+        'persona:string': { unique: true }
       }
     },
     {
@@ -88,7 +85,7 @@ var Storage = {
     .catch(e => console.log(e));
   },
 
-  async getAll (table, id){
+  async getAll (table){
     return this.txn(db => db(table).query('select').exec()).catch(e => console.log(e));
   },
 

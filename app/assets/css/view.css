@@ -167,7 +167,7 @@ button {
   padding: 0.55em 0.75em 0.5em;
   background: #ddd;
   border: none;
-  border-radius: 3px;
+  border-radius: 2px;
   box-shadow: var(--element-shadow-mid);
   cursor: pointer;
 }
@@ -188,7 +188,7 @@ button[options~="cancel"] {
 
 button[options~="icon"] {
   font-size: 1.25em;
-  padding: 0.4em 0.4em 0.3em;
+  padding: .375em .4em .3em;
 }
 
 ul, ol {

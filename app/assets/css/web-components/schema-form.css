@@ -1,0 +1,53 @@
+schema-form {
+  display: block;
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 600px;
+  transition: opacity 0.5s ease;
+}
+schema-form:empty {
+  opacity: 0;
+}
+schema-form > form > .schema-form-submit {
+  display: none;
+}
+schema-form[submit] > form > .schema-form-submit {
+  display: block;
+}
+schema-form h4 {
+  margin-top: 0.8em;
+}
+schema-form .je-panel {
+  padding: 0.8em 1em !important;
+}
+schema-form div[data-theme="spectre"] div[data-schematype]:not([data-schematype="object"]):hover {
+  background-color: transparent !important;
+}
+schema-form .compact > .form-group > .form-checkbox {
+  padding-left: 0 !important;
+}
+schema-form .compact > .form-group > .form-checkbox i.form-icon {
+  position: relative;
+  background: #bcc3ce;
+  border-radius: .45rem;
+  height: .9rem;
+  top: .2rem !important;
+  width: 1.6rem;
+  margin-right: 0.5em;
+}
+schema-form .compact > .form-group > .form-checkbox input:checked+i.form-icon::before {
+  left: 14px;
+}
+schema-form .compact > .form-group > .form-checkbox i.form-icon::before {
+  background: #fff;
+  border-radius: 50%;
+  content: "";
+  display: block;
+  height: .8rem !important;
+  margin-top: 0 !important;
+  left: 0;
+  position: absolute;
+  top: 0 !important;
+  transition: background .2s,border .2s,box-shadow .2s,color .2s,left .2s;
+  width: .8rem !important;
+}

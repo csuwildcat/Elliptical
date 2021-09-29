@@ -29,18 +29,18 @@ const jwsHeader = {
   typ: 'JWT'
 };
 
+async function getMethod(method){
+  return (await import(`../did-methods/${method}/index.js`)).default
+}
+
 let DID = {
-  async create (method = 'ion', options = {}){
-    let module = (await import(`../did-methods/${method}/index.js`)).default;
-    console.log(module);
+  async create (options = {}){
+    let module = await getMethod(options.method || 'ion');
     let did = await module.create();
+    if (options.persona) did.persona = options.persona.trim();
+    if (options.icon) did.icon = options.icon;
     await Storage.set('dids', did);
     return did;
-  },
-  async createPersona(persona = {}){
-    let did = await this.create();
-    persona.id = did.id;
-    return Storage.set('personas', persona);
   },
   async createPeerDID (uri, options = {}){
     let entry = await Storage.get('connections', uri) || createConnection(uri);
@@ -52,7 +52,12 @@ let DID = {
     return entry;
   },
   async get(didUri){
-    return Storage.get('dids', didUri);
+    return Storage.find('dids', [
+      'equivalentIds', 'IN', [didUri]
+    ]).then(rows => rows[0])
+  },
+  async getPersonas(){
+    return Storage.find('dids', did => !!did.persona)
   },
   async getConnection (uri, options = {}){
     return await Storage.get('connections', uri);
@@ -66,6 +71,7 @@ let DID = {
     });
   },
   async resolve(did){
+
     return fetch('https://resolver.identity.foundation/1.0/identifiers/' + did).then(res => res.json());
   },
   async sign(didUri, message, decode){

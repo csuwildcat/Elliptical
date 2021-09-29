@@ -343,9 +343,18 @@
             </nav>
           </header>
           <section>
-            Foo
-            <div class="test-block"></div>
-            Bar
+            <tab-panels selected-index="0">
+              <nav>
+                <button type="button">File</button>
+                <button type="button">Text</button>
+              </nav>
+              <section>
+
+              </section>
+              <section>
+
+              </section>
+            </tab-panels>
           </section>
         </slide-panel>
         
@@ -379,6 +388,22 @@
         <footer>
           <button type="button" modal-close>Cancel</button>
           <button id="persona_create_submit" type="submit" form="persona_create_form">Create</button>
+        </footer>
+      </article>
+    </modal-overlay>
+
+    <modal-overlay id="data_entry_modal">
+      <article>
+        <header>
+          <h3></h3><span modal-close=""></span>
+        </header>
+
+        <section>
+          <schema-form submit="Submit"></schema-form>
+        </section>
+
+        <footer>
+          <button type="button" modal-close="">Cancel</button>
         </footer>
       </article>
     </modal-overlay>

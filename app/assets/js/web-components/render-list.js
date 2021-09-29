@@ -1,5 +1,6 @@
 
 import { DOM } from '/assets/js/modules/dom.js';
+import { DID } from '/assets/js/modules/did.js';
 import { Data } from '/assets/js/modules/data.js';
 import { Storage } from '/assets/js/modules/storage.js';
 
@@ -31,7 +32,7 @@ class RenderList extends HTMLElement {
     return list;
   }
   async load (options = {}){
-    let items = !options.data || typeof options.data === 'string' ? await Storage.getAll(options.data || this.storageBucket) : data;
+    let items = (!options.data || typeof options.data === 'string') ? await Storage.getAll(options.data || this.storageBucket) : options.data;
     if (!items) {
       this.setAttribute('empty', '');
       return;
@@ -54,20 +55,23 @@ class RenderList extends HTMLElement {
 
   class PersonaList extends RenderList {
     constructor (options = {}) {
-      options.storageBucket = 'personas';
+      options.storageBucket = 'dids';
       super(options);
     }
+    async load (options = {}){
+      options.data = await DID.getPersonas();
+      return super.load(options);
+    }
     async renderList(options = {}){
-      
       let list = await super.renderList(options);
           list.setAttribute('list', 'block');
       return list;
     }
-    async renderItem(persona, options = {}) {
+    async renderItem(did, options = {}) {
       let node = document.createElement('li');
-          node.setAttribute('persona-id', persona.id);
-          node.setAttribute('persona-name', persona.name);
-          node.innerHTML = `<i class="${persona.icon}"></i><h3>${persona.name}</h3>`;
+          node.setAttribute('persona-id', did.id);
+          node.setAttribute('persona-name', did.persona);
+          node.innerHTML = `<i class="${did.icon}"></i><h3>${did.persona}</h3>`;
       return node;
     }
   };
