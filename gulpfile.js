@@ -8,7 +8,8 @@ const mergeStreams = require('merge-stream');
 const nunjucksRender = require('gulp-nunjucks-render');
 const axios = require('axios');
 
-const schemaOrg = require('@postman-open-tech/schemaorgjsonschema');
+const $RefParser = require("@apidevtools/json-schema-ref-parser");
+const {stringify} = require('flatted');
 
 const root = 'app/assets/';
 const compiledJS = root + 'js/compiled/';
@@ -85,21 +86,70 @@ async function renderTemplates() {
     .pipe(gulp.dest('./app/'))
 };
 
-async function compileSchemas() {
+
+const schemaSource = 'node_modules/@postman-open-tech/schemaorgjsonschema/schema';
+const schemaDestination = 'app/assets/schemas/schema.org';
+
+async function copySchemas() {
   return new Promise(async resolve => {
-    const schemaSource = 'node_modules/@postman-open-tech/schemaorgjsonschema/schema';
-    const schemaDestination = 'app/assets/schemas/schema.org';
-    await fs.ensureDir(schemaDestination);
+    
+    await fs.ensureDir('app/assets/schemas/schema.org');
+
     try {
-      await fs.copy(schemaSource, schemaDestination);
+      const sourceFiles = await fs.readdir(schemaSource);
+      for (const file of sourceFiles) {
+        let text = await fs.readFile(schemaSource + '/' + file, 'utf8');
+        let modified = text.replace(/"\$ref":\s+"(\w)/gmi, function(match, g){
+          return '"$ref": "/repos/carbon/app/assets/schemas/schema.org/' + g;
+        });
+        await fs.writeFile(schemaDestination + '/' + file, modified);
+      }
+      resolve();
+
     } catch (err) {
       console.error(err);
+      resolve();
     }
-    resolve();
+
   });
 };
 
-gulp.task('schemas', compileSchemas);
+async function compileSchemas() {
+  return new Promise(async resolve => {
+
+    try {
+
+      let done;
+      const destinationFiles = await fs.readdir(schemaDestination);
+      for (const file of destinationFiles) {
+        let path = schemaDestination + '/' + file;
+        let schema;
+        try {
+          let json = await fs.readJson(path, 'utf8');
+          schema = await $RefParser.dereference(json);
+          await fs.writeFile(path, stringify(schema));
+        }
+        catch (e) {
+          console.log(e);
+          if (!done) {
+            done = true;
+            console.log(e);
+            console.log(schema);
+          }
+          fs.remove(path);
+        }
+      }
+
+      resolve();
+
+    } catch (err) {
+      console.error(err);
+      resolve();
+    }
+  });
+};
+
+gulp.task('schemas', gulp.series(copySchemas, compileSchemas));
 
 gulp.task('build', gulp.series(compileCSS, compileJS, renderTemplates));
 

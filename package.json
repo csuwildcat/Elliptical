@@ -33,6 +33,7 @@
     "npx": "^10.2.2"
   },
   "dependencies": {
+    "@apidevtools/json-schema-ref-parser": "^9.0.9",
     "@decentralized-identity/ion-sdk": "0.4.1",
     "@decentralized-identity/ion-tools": "0.0.1",
     "@nano-sql/core": "2.3.7",
@@ -44,6 +45,7 @@
     "@transmute/did-key-x25519": "^0.2.1-unstable.35",
     "@transmute/did-key.js": "^0.2.1-unstable.35",
     "dompurify": "2.2.6",
+    "flatted": "^3.2.2",
     "generate-schema": "2.6.0",
     "jose": "^3.10.0",
     "jshashes": "1.0.8",
