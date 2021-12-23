@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="">
+
+<head>
+  <meta charset="utf-8">
+  <title>Test Site for DID Wallet</title>
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="stylesheet" href="/test-site/css/normalize.css">
+  <link rel="stylesheet" href="/test-site/css/global.css">
+  <link rel="stylesheet" href="/test-site/css/site.css">
+
+  <script src="/assets/js/protocol-handler.js"></script>
+
+</head>
+
+<body>
+
+  <h1 id="welcome">Dwitter</h1>
+  
+<button id="login">Login with your DID</button>
+
+<button id="music_permissions">Request access to music</button>
+
+  <!-- <did-connect id="connect" href="/did-connect" action="requestDID">
+    <button type="button">Login with your DID</button>
+  </did-connect> -->
+  
+
+
+  <script type="module">
+
+    import { UUID } from '/assets/js/modules/uuid.js';
+
+    async function getDID(prompt){
+      let response = await navigator.did.requestDID({
+        challenge: UUID.v4(),
+        prompt: prompt,
+        methods: ['ion']
+      }).catch(e => console.log(e));
+      if (response?.did) welcome.setAttribute('message', response.did);
+    }
+
+    getDID();
+    
+    login.addEventListener('click', async e => {
+      let hasWallet = await navigator.did.agentConnected();
+      if (hasWallet) getDID(true);
+      else {
+        console.log('No wallet connected');
+      }
+    });
+
+    music_permissions.addEventListener('click', async e => {
+      let hasWallet = await navigator.did.agentConnected();
+      if (hasWallet) {
+        let response = await navigator.did.requestPermissions({
+          challenge: UUID.v4(),
+          requests: [
+            {
+              type: 'collections',
+              schemas: [
+                'https://schema.org/MusicPlaylist',
+                'https://schema.org/MusicRecording'
+              ]
+            }
+          ]
+        }).catch(e => console.log(e));
+      }
+      else {
+        console.log('No wallet connected');
+      }
+    });
+
+  </script>
+
+</body>
+
+</html>

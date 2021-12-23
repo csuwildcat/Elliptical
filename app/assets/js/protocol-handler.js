@@ -113,7 +113,7 @@
 
   let channel;
   function getChannel(){
-    return channel || (channel = new ProtocolChannel('web+did', {
+    return channel || (channel = new ProtocolChannel('did', {
       async onMessage(){
         return navigator?.did?.protocolHandler?.(...arguments);
       },
@@ -125,6 +125,7 @@
     }));
   }
 
+  
   if (isPage) {
 
     Navigator.prototype.did = {

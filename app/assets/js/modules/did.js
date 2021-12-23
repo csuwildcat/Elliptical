@@ -53,7 +53,7 @@ let DID = {
   },
   async get(didUri){
     return Storage.find('dids', [
-      'equivalentIds', 'IN', [didUri]
+      ['equivalentIds', 'INCLUDES', didUri]
     ]).then(rows => rows[0])
   },
   async getPersonas(){
@@ -76,6 +76,7 @@ let DID = {
   },
   async sign(didUri, message, decode){
     let did = await this.get(didUri);
+    console.log(did, didUri);
     switch (did.curve) {
       case 'Ed25519':
         let utils = await CryptoUtils;

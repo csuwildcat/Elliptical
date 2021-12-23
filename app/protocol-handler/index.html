@@ -3,25 +3,26 @@
 
   <head>
     <meta charset="utf-8">
-    <title>DID Connect</title>
+    <title>DID Protocol Handler</title>
   </head>
 
   <body>
-    Carbon Wallet
-    <script src="/js/connect.js"></script>
+    Elliptical Wallet
+    <script src="/assets/js/protocol-handler.js"></script>
 
     <script type="module">
-      import { DID } from '/js/modules/did.js';
-      import { DOM } from '/js/modules/dom.js';
-      import { UUID } from '/js/modules/uuid.js';
+      import { DID } from '/assets/js/modules/did.js';
+      import { DOM } from '/assets/js/modules/dom.js';
+      import { UUID } from '/assets/js/modules/uuid.js';
       
       navigator.did.protocolHandler = async function (channel, topic, message, origin) {
         
         return new Promise(async (resolve, reject) => {
-          if (channel.protocol === 'web+did:') {
+          if (channel.protocol === 'did:') {
             switch(topic) {
               case 'requestDID': 
                 var peer = await DID.getConnection(origin);
+                console.log(peer);
                 if (false) {
                   var nonce = UUID.v4();
                   resolve({
